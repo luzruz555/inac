@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lucent_official</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #1c1b19;
+    --bg-card: #242220;
+    --bg-elevated: #2b2926;
+    --text-main: #ECE7DF;
+    --text-sub: #9C958A;
+    --text-faint: #5C574F;
+    --bronze: #B8895B;
+    --bronze-bright: #E0B688;
+    --glitch-red: #C1443C;
+    --glitch-cyan: #4FA9A0;
+    --line: #34312D;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--text-main);
+    font-family:'Noto Sans KR', sans-serif;
+    line-height:1.55;
+  }
+  ::selection{ background:var(--bronze); color:#181715; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(28,27,25,.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+  }
+  .handle{ display:flex; align-items:center; gap:10px; }
+  .handle .dot{ width:8px; height:8px; border-radius:50%; background:var(--bronze); }
+  .handle b{ font-family:'JetBrains Mono', monospace; font-size:15px; letter-spacing:.02em; }
+  .handle span{ font-size:11px; color:var(--text-faint); }
+
+  .login-mini{ display:flex; align-items:center; gap:6px; }
+  .login-mini input{
+    width:120px; background:var(--bg-elevated); border:1px solid var(--line);
+    color:var(--text-main); font-family:'JetBrains Mono', monospace; font-size:11px;
+    padding:8px 10px; border-radius:20px; outline:none; letter-spacing:.05em;
+    transition:.2s;
+  }
+  .login-mini input:focus{ border-color:var(--bronze); width:150px; }
+  .login-mini button{
+    background:var(--bronze); color:#181715; border:none; border-radius:20px;
+    font-size:11px; font-weight:700; padding:8px 14px; cursor:pointer;
+    font-family:'Noto Sans KR', sans-serif; transition:.2s;
+  }
+  .login-mini button:hover{ background:var(--bronze-bright); }
+  #login-mini-msg{
+    position:absolute; top:56px; right:20px; font-family:'JetBrains Mono', monospace;
+    font-size:11px; color:var(--glitch-red); text-align:right;
+  }
+
+  .wrap{ max-width:480px; margin:0 auto; padding-bottom:80px; position:relative; }
+
+  /* ---------- profile block ---------- */
+  .profile{ display:flex; align-items:center; gap:16px; padding:24px 20px 10px; }
+  .avatar{
+    width:72px; height:72px; border-radius:50%; flex-shrink:0;
+    background:conic-gradient(from 220deg, var(--bronze), var(--glitch-cyan), var(--bronze));
+    padding:3px; display:flex; align-items:center; justify-content:center;
+  }
+  .avatar-inner{
+    width:100%; height:100%; border-radius:50%; background:var(--bg-elevated);
+    display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--text-faint);
+    font-family:'JetBrains Mono', monospace; text-align:center;
+  }
+  .profile-stats{ display:flex; gap:20px; }
+  .profile-stats div{ text-align:center; }
+  .profile-stats b{ display:block; font-family:'JetBrains Mono', monospace; font-size:16px; }
+  .profile-stats span{ font-size:11px; color:var(--text-faint); }
+  .bio{ padding:6px 20px 20px; font-size:13px; color:var(--text-sub); }
+  .bio b{ color:var(--text-main); display:block; font-size:14px; margin-bottom:2px; }
+
+  /* ---------- story bar ---------- */
+  .stories{ display:flex; gap:14px; padding:6px 20px 22px; overflow-x:auto; border-bottom:1px solid var(--line); }
+  .story{ text-align:center; flex-shrink:0; width:60px; }
+  .story .ring{
+    width:56px; height:56px; border-radius:50%; padding:2px; margin:0 auto 6px;
+    background:linear-gradient(135deg, var(--bronze), var(--glitch-cyan));
+  }
+  .story.seen .ring{ background:var(--line); }
+  .story .ring-inner{
+    width:100%; height:100%; border-radius:50%; background:var(--bg-elevated);
+    display:flex; align-items:center; justify-content:center; font-size:9px; color:var(--text-faint);
+  }
+  .story span{ font-size:10px; color:var(--text-sub); }
+
+  /* ---------- feed ---------- */
+  .post{ border-bottom:1px solid var(--line); padding:18px 20px; }
+  .post-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .post-avatar{
+    width:34px; height:34px; border-radius:50%; background:var(--bg-elevated);
+    border:1px solid var(--line);
+  }
+  .post-head b{ font-size:13px; }
+  .post-head span{ font-size:11px; color:var(--text-faint); display:block; }
+  .post-img{
+    width:100%; aspect-ratio:4/5; border-radius:6px; margin-bottom:12px;
+    background:repeating-linear-gradient(135deg, #2a2723, #2a2723 10px, #242119 10px, #242119 20px);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-faint); font-size:12px; font-family:'JetBrains Mono', monospace;
+  }
+  .post-text{ font-size:14px; color:var(--text-main); margin-bottom:10px; }
+  .post-meta{ display:flex; gap:16px; font-size:12px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- ghost posts (glitch, fleeting) ---------- */
+  .ghost-marker{ height:1px; }
+  .ghost-post{
+    max-height:0; opacity:0; overflow:hidden; padding:0 20px;
+    transition:max-height .25s ease, opacity .2s ease, padding .25s ease;
+    border-bottom:1px solid transparent;
+  }
+  .ghost-post.show{
+    max-height:200px; opacity:1; padding:18px 20px; border-bottom:1px solid var(--glitch-red);
+    background:rgba(193,68,60,.05);
+  }
+  .ghost-post .g-head{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--glitch-red); margin-bottom:8px; }
+  .ghost-post .g-text{ font-size:15px; color:var(--text-main); font-weight:500; }
+  .ghost-active .g-text{ animation:ghostGlitch .15s steps(2) infinite; }
+  @keyframes ghostGlitch{
+    0%{ transform:translate(0,0); text-shadow:none; }
+    33%{ transform:translate(-1px,1px); text-shadow:1px 0 var(--glitch-red), -1px 0 var(--glitch-cyan); }
+    66%{ transform:translate(1px,-1px); text-shadow:-1px 0 var(--glitch-cyan); }
+    100%{ transform:translate(0,0); }
+  }
+  .ghost-post.gone{ max-height:0; opacity:0; padding:0 20px; border-bottom:1px solid transparent; }
+  .ghost-post .deleted{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-faint); font-style:italic; }
+
+  /* ---------- overlay flash ---------- */
+  #glitch-overlay{
+    position:fixed; inset:0; z-index:99; pointer-events:none; opacity:0;
+  }
+  #glitch-overlay.on{ opacity:1; animation:overlayFlash .45s steps(6); }
+  @keyframes overlayFlash{
+    0%,100%{ background-color:transparent; }
+    25%{ background-color:rgba(193,68,60,.14); }
+    50%{ background-color:rgba(79,169,160,.10); }
+    75%{ background-color:rgba(184,137,91,.10); }
+  }
+
+  /* ---------- hidden archive (unlocked via login) ---------- */
+  #archive{
+    display:none; margin:20px; border:1px solid var(--bronze); border-radius:8px;
+    padding:22px; background:var(--bg-elevated);
+  }
+  #archive h3{ font-family:'Black Han Sans', sans-serif; font-size:20px; margin-bottom:6px; color:var(--bronze-bright); }
+  #archive p.desc{ font-size:12px; color:var(--text-faint); margin-bottom:16px; }
+  #archive .arc-item{ font-size:14px; padding:10px 0; border-bottom:1px solid var(--line); color:var(--text-sub); }
+  #archive .arc-item:last-child{ border-bottom:none; }
+  #archive .arc-item b{ color:var(--text-main); font-weight:500; }
+
+  .shake{ animation:shake .4s; }
+  @keyframes shake{
+    10%,90%{ transform:translateX(-2px);} 20%,80%{ transform:translateX(3px);}
+    30%,50%,70%{ transform:translateX(-4px);} 40%,60%{ transform:translateX(4px);}
+  }
+</style>
+</head>
+<body>
+
+<div id="glitch-overlay"></div>
+
+<header>
+  <div class="handle">
+    <a href="lucent-profile.html" style="font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--text-sub); margin-right:6px; text-decoration:none;">←</a>
+    <span class="dot"></span>
+    <div>
+      <b>lucent_official</b>
+      <span>랭킹 32위 · 팔로워 128,400 · 홍보대사</span>
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="login-mini">
+      <input type="text" id="pw-mini" placeholder="PASSWORD" autocomplete="off" spellcheck="false">
+      <button id="login-mini-btn">확인</button>
+    </div>
+    <div id="login-mini-msg"></div>
+  </div>
+</header>
+
+<div class="wrap" id="feed-wrap">
+
+  <div class="profile">
+    <div class="avatar"><div class="avatar-inner">사진<br>업로드<br>예정</div></div>
+    <div class="profile-stats">
+      <div><b>412</b><span>게시물</span></div>
+      <div><b>128.4K</b><span>팔로워</span></div>
+      <div><b>3</b><span>팔로잉</span></div>
+    </div>
+  </div>
+  <div class="bio">
+    <b>루센트 · LUCENT</b>
+    오늘도 와줘서 고마워요 🤍 매일 밤 10시, 여기서 만나요.
+  </div>
+
+  <div class="stories">
+    <div class="story"><div class="ring"><div class="ring-inner">방송<br>일정</div></div><span>공지</span></div>
+    <div class="story seen"><div class="ring"><div class="ring-inner">사진</div></div><span>일상</span></div>
+    <div class="story seen"><div class="ring"><div class="ring-inner">사진</div></div><span>Q&amp;A</span></div>
+    <div class="story seen"><div class="ring"><div class="ring-inner">사진</div></div><span>비하인드</span></div>
+  </div>
+
+  <!-- ===== FEED ===== -->
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>3시간 전</span></div>
+    </div>
+    <div class="post-img">사진 업로드 예정</div>
+    <div class="post-text">오늘 밤 10시, 심야 라이브 갑니다! 신청곡 받아요 🎧</div>
+    <div class="post-meta"><span>♥ 12,204</span><span>💬 891</span></div>
+  </div>
+
+  <div class="ghost-marker" data-ghost="0"></div>
+  <div class="ghost-post" id="ghost-0">
+    <div class="g-head"><span>lucent_official</span><span>방금</span></div>
+    <div class="g-text">하기 싫어.</div>
+  </div>
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>어제</span></div>
+    </div>
+    <div class="post-text">다음 주 화요일 팬 상담 코너 신청 폼 열었어요. 많이 신청해줘요!</div>
+    <div class="post-meta"><span>♥ 9,120</span><span>💬 402</span></div>
+  </div>
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>2일 전</span></div>
+    </div>
+    <div class="post-img">사진 업로드 예정</div>
+    <div class="post-text">새로운 콜라보 콘텐츠 티저... 기대해도 좋아요 👀</div>
+    <div class="post-meta"><span>♥ 15,830</span><span>💬 1,204</span></div>
+  </div>
+
+  <div class="ghost-marker" data-ghost="1"></div>
+  <div class="ghost-post" id="ghost-1">
+    <div class="g-head"><span>lucent_official</span><span>방금</span></div>
+    <div class="g-text">오늘은 그냥 사라지고 싶다.</div>
+  </div>
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>3일 전</span></div>
+    </div>
+    <div class="post-text">랭킹 1위 유지 중! 다들 정말 고마워요 🥹 오늘도 잘 부탁드려요</div>
+    <div class="post-meta"><span>♥ 22,010</span><span>💬 2,301</span></div>
+  </div>
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>4일 전</span></div>
+    </div>
+    <div class="post-img">사진 업로드 예정</div>
+    <div class="post-text">주말 팬미팅 장소 공지, 자세한 건 프로필 링크 확인해주세요</div>
+    <div class="post-meta"><span>♥ 8,442</span><span>💬 310</span></div>
+  </div>
+
+  <div class="ghost-marker" data-ghost="2"></div>
+  <div class="ghost-post" id="ghost-2">
+    <div class="g-head"><span>lucent_official</span><span>방금</span></div>
+    <div class="g-text">여기 있는 게 더 편해. 나가기 싫어.</div>
+  </div>
+
+  <div class="post">
+    <div class="post-head">
+      <div class="post-avatar"></div>
+      <div><b>lucent_official</b><span>5일 전</span></div>
+    </div>
+    <div class="post-text">이번 주도 잘 부탁드려요 🤍</div>
+    <div class="post-meta"><span>♥ 11,092</span><span>💬 703</span></div>
+  </div>
+
+  <div class="ghost-marker" data-ghost="3"></div>
+  <div class="ghost-post" id="ghost-3">
+    <div class="g-head"><span>???</span><span>방금</span></div>
+    <div class="g-text" id="ghost-3-text">L0G1N C0DE : C4NTL0GOVT</div>
+    <div class="deleted" style="display:none;" id="ghost-3-deleted">이 게시물을 찾을 수 없습니다.</div>
+  </div>
+
+  <div id="archive">
+    <h3>보관함</h3>
+    <p class="desc">삭제되기 전, 잠깐씩 올라왔던 글들입니다.</p>
+    <div class="arc-item"><b>하기 싫어.</b></div>
+    <div class="arc-item"><b>오늘은 그냥 사라지고 싶다.</b></div>
+    <div class="arc-item"><b>여기 있는 게 더 편해. 나가기 싫어.</b></div>
+    <div class="arc-item">작성자 ??? — <b>L0G1N C0DE : C4NTL0GOVT</b></div>
+  </div>
+
+</div>
+
+<script>
+  const overlay = document.getElementById('glitch-overlay');
+  function flashGlitch(duration = 500){
+    overlay.classList.add('on');
+    setTimeout(() => overlay.classList.remove('on'), duration);
+  }
+
+  // ---------- ghost posts: fleeting glitch reveal on scroll ----------
+  const shownOnce = new Set();
+
+  function playGhost(el, isFinal){
+    el.classList.add('show');
+    const textEl = el.querySelector('.g-text');
+    const glitchTicks = 4;
+    let tick = 0;
+    const flicker = setInterval(() => {
+      el.classList.toggle('ghost-active');
+      tick++;
+      if(tick >= glitchTicks){
+        clearInterval(flicker);
+        el.classList.remove('ghost-active');
+      }
+    }, 130);
+
+    const visibleTime = isFinal ? 2200 : 1500;
+    setTimeout(() => {
+      flashGlitch(300);
+      el.classList.add('ghost-active');
+      setTimeout(() => {
+        el.classList.remove('show');
+        el.classList.remove('ghost-active');
+        if(isFinal){
+          const deletedNote = document.getElementById('ghost-3-deleted');
+          textEl.style.display = 'none';
+          deletedNote.style.display = 'block';
+          el.classList.add('show');
+        }
+      }, 250);
+    }, visibleTime);
+  }
+
+  const markers = document.querySelectorAll('.ghost-marker');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const idx = entry.target.dataset.ghost;
+        const key = 'ghost-' + idx;
+        if(shownOnce.has(key)) return;
+        shownOnce.add(key);
+        const ghostEl = document.getElementById(key);
+        const isFinal = idx === '3';
+        setTimeout(() => playGhost(ghostEl, isFinal), 200);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  markers.forEach(m => observer.observe(m));
+
+  // ---------- top-right login ----------
+  const pwMini = document.getElementById('pw-mini');
+  const loginMiniBtn = document.getElementById('login-mini-btn');
+  const loginMiniMsg = document.getElementById('login-mini-msg');
+  const loginMiniBox = document.querySelector('.login-mini');
+  const archive = document.getElementById('archive');
+
+  function tryMiniLogin(){
+    const val = pwMini.value.trim().toUpperCase();
+    if(val === 'C4NTL0GOVT'){
+      loginMiniMsg.textContent = '접근 허용됨';
+      flashGlitch(600);
+      archive.style.display = 'block';
+      setTimeout(() => archive.scrollIntoView({ behavior:'smooth', block:'center' }), 400);
+      return;
+    }
+    loginMiniBox.classList.add('shake');
+    setTimeout(() => loginMiniBox.classList.remove('shake'), 400);
+    loginMiniMsg.textContent = '일치하지 않음';
+  }
+
+  loginMiniBtn.addEventListener('click', tryMiniLogin);
+  pwMini.addEventListener('keydown', e => { if(e.key === 'Enter') tryMiniLogin(); });
+</script>
+
+</body>
+</html>
+
