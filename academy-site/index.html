@@ -33,13 +33,19 @@
   }
   ::selection{ background:var(--bronze); color:#181715; }
 
+  .logo, .hero h1, .spotlight-info h2, .section-head h2, .login-box h2, #ghost-panel h3{
+    text-shadow:
+      -1px -1px 0 var(--bg), 1px -1px 0 var(--bg),
+      -1px  1px 0 var(--bg), 1px  1px 0 var(--bg);
+  }
+
   a{color:inherit; text-decoration:none;}
 
   /* ---------- layout helpers ---------- */
   .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
   section{ padding:96px 0; border-bottom:1px solid var(--line); }
   .eyebrow{
-    font-family:'JetBrains Mono', monospace;
+    font-family:'JetBrains Mono', 'Noto Sans KR', monospace;
     font-size:12px; letter-spacing:.18em; text-transform:uppercase;
     color:var(--bronze); margin-bottom:14px; display:block;
   }
@@ -52,10 +58,10 @@
     border-bottom:1px solid var(--line);
   }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 24px; max-width:1080px; margin:0 auto; }
-  .logo{ font-family:'Black Han Sans', sans-serif; font-size:22px; letter-spacing:.02em; }
+  .logo{ font-family:'Black Han Sans', 'Noto Sans KR', sans-serif; font-size:22px; letter-spacing:.02em; }
   .logo span{ color:var(--bronze); }
   .nav-cta{
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.05em;
+    font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:12px; letter-spacing:.05em;
     border:1px solid var(--bronze); color:var(--bronze-bright);
     padding:9px 18px; border-radius:2px; transition:.2s;
   }
@@ -64,13 +70,13 @@
   /* ---------- hero ---------- */
   .hero{ padding:120px 0 90px; border-bottom:1px solid var(--line); position:relative; }
   .hero-tag{
-    font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--text-sub);
+    font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:13px; color:var(--text-sub);
     display:flex; gap:10px; align-items:center; margin-bottom:28px;
   }
   .pulse-dot{ width:7px; height:7px; border-radius:50%; background:var(--bronze); animation:pulse 1.8s infinite; }
   @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.25;} }
   .hero h1{
-    font-family:'Black Han Sans', sans-serif;
+    font-family:'Black Han Sans', 'Noto Sans KR', sans-serif;
     font-size:clamp(38px, 6vw, 72px);
     line-height:1.15; letter-spacing:-.01em;
     max-width:820px;
@@ -80,7 +86,7 @@
     margin-top:24px; max-width:520px; color:var(--text-sub); font-size:16px;
   }
   .hero-stats{ display:flex; gap:48px; margin-top:52px; flex-wrap:wrap; }
-  .stat b{ font-family:'JetBrains Mono', monospace; font-size:28px; color:var(--text-main); display:block; }
+  .stat b{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:28px; color:var(--text-main); display:block; }
   .stat span{ font-size:12px; color:var(--text-faint); letter-spacing:.05em; }
 
   /* ---------- ambassador spotlight ---------- */
@@ -90,17 +96,17 @@
   }
   .spotlight-badge{
     position:absolute; top:-14px; left:32px; background:var(--bronze); color:#181715;
-    font-family:'JetBrains Mono', monospace; font-size:11px; font-weight:700; letter-spacing:.08em;
+    font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:11px; font-weight:700; letter-spacing:.08em;
     padding:6px 14px; border-radius:20px;
   }
   .spotlight-photo{
     width:100%; aspect-ratio:3/4; border-radius:4px;
     background:repeating-linear-gradient(135deg, #2f2c28, #2f2c28 10px, #29271f 10px, #29271f 20px);
     display:flex; align-items:center; justify-content:center; color:var(--text-faint);
-    font-size:12px; font-family:'JetBrains Mono', monospace; text-align:center;
+    font-size:12px; font-family:'JetBrains Mono', 'Noto Sans KR', monospace; text-align:center;
   }
-  .spotlight-info .rank-line{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--bronze-bright); margin-bottom:8px; letter-spacing:.05em; }
-  .spotlight-info h2{ font-family:'Black Han Sans', sans-serif; font-size:34px; margin-bottom:12px; }
+  .spotlight-info .rank-line{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:13px; color:var(--bronze-bright); margin-bottom:8px; letter-spacing:.05em; }
+  .spotlight-info h2{ font-family:'Black Han Sans', 'Noto Sans KR', sans-serif; font-size:34px; margin-bottom:12px; }
   .spotlight-info p.desc{ color:var(--text-sub); font-size:14px; margin-bottom:20px; max-width:460px; }
   .spotlight-info .quote{ font-size:14px; font-style:italic; color:var(--text-main); border-left:2px solid var(--bronze); padding-left:12px; margin-bottom:24px; }
   .spotlight-cta{
@@ -112,7 +118,7 @@
 
   /* ---------- influencer grid ---------- */
   .section-head{ margin-bottom:48px; }
-  .section-head h2{ font-family:'Black Han Sans', sans-serif; font-size:32px; }
+  .section-head h2{ font-family:'Black Han Sans', 'Noto Sans KR', sans-serif; font-size:32px; }
   .section-head p{ color:var(--text-sub); margin-top:8px; font-size:14px; }
 
   .grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:18px; }
@@ -122,20 +128,20 @@
   }
   .card:hover{ background:var(--bg-card-hover); border-color:var(--bronze); }
   .card .rank{
-    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--bronze);
+    font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:11px; color:var(--bronze);
     letter-spacing:.1em; margin-bottom:10px; display:block;
   }
   .card .photo{
     width:100%; aspect-ratio:3/4; background:repeating-linear-gradient(135deg, #2f2c28, #2f2c28 10px, #29271f 10px, #29271f 20px);
     border-radius:3px; margin-bottom:14px; display:flex; align-items:center; justify-content:center;
-    color:var(--text-faint); font-size:12px; font-family:'JetBrains Mono', monospace; text-align:center;
+    color:var(--text-faint); font-size:12px; font-family:'JetBrains Mono', 'Noto Sans KR', monospace; text-align:center;
   }
   .card h3{ font-size:18px; margin-bottom:4px; }
-  .card .followers{ font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--bronze-bright); margin-bottom:10px; }
+  .card .followers{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:13px; color:var(--bronze-bright); margin-bottom:10px; }
   .card .role{ font-size:12px; color:var(--text-sub); margin-bottom:10px; }
   .card .quote{ font-size:13px; color:var(--text-main); font-style:italic; border-left:2px solid var(--bronze); padding-left:10px; margin-bottom:12px; }
   .card .logout-row{
-    display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace;
+    display:flex; justify-content:space-between; font-family:'JetBrains Mono', 'Noto Sans KR', monospace;
     font-size:11px; color:var(--text-faint); border-top:1px solid var(--line); padding-top:10px; margin-top:4px;
   }
   .card .logout-row b{ color:var(--text-sub); font-weight:500; }
@@ -150,11 +156,11 @@
   .login-box{
     max-width:420px; margin:0 auto; text-align:center; position:relative;
   }
-  .login-box h2{ font-family:'Black Han Sans', sans-serif; font-size:30px; margin-bottom:10px; }
+  .login-box h2{ font-family:'Black Han Sans', 'Noto Sans KR', sans-serif; font-size:30px; margin-bottom:10px; }
   .login-box p{ color:var(--text-sub); font-size:14px; margin-bottom:36px; }
   #pw-input{
     width:100%; background:var(--bg-card); border:1px solid var(--line);
-    color:var(--text-main); font-family:'JetBrains Mono', monospace; font-size:15px;
+    color:var(--text-main); font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:15px;
     padding:16px 18px; border-radius:2px; letter-spacing:.08em; text-align:center;
     outline:none; transition:.2s;
   }
@@ -166,7 +172,7 @@
   }
   #login-btn:hover{ background:var(--bronze-bright); }
   #login-msg{
-    margin-top:16px; font-family:'JetBrains Mono', monospace; font-size:12px; min-height:18px; color:var(--glitch-red);
+    margin-top:16px; font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:12px; min-height:18px; color:var(--glitch-red);
   }
   .shake{ animation:shake .4s; }
   @keyframes shake{
@@ -176,7 +182,7 @@
 
   /* hidden message — near-invisible on dark gray, only readable up close / on selection */
   .hidden-msg{
-    margin-top:60px; font-family:'JetBrains Mono', monospace; font-size:11px;
+    margin-top:60px; font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:11px;
     color:var(--hidden); line-height:1.9; user-select:text; cursor:default;
     max-width:460px; margin-left:auto; margin-right:auto;
   }
@@ -185,7 +191,7 @@
   .qna-item{ border-bottom:1px solid var(--line); padding:22px 0; }
   .qna-item:last-child{ border-bottom:none; }
   .qna-item .q{ font-weight:700; margin-bottom:8px; display:flex; gap:10px; }
-  .qna-item .q span{ color:var(--bronze); font-family:'JetBrains Mono', monospace; }
+  .qna-item .q span{ color:var(--bronze); font-family:'JetBrains Mono', 'Noto Sans KR', monospace; }
   .qna-item .a{ color:var(--text-sub); font-size:14px; padding-left:24px; }
 
   #qna-hidden{
@@ -226,17 +232,17 @@
     padding:28px; background:#1e1c1a;
   }
   #ghost-panel .ghost-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; flex-wrap:wrap; gap:8px;}
-  #ghost-panel h3{ font-family:'Black Han Sans', sans-serif; font-size:22px; color:var(--text-main); }
-  #ghost-panel .last-seen{ font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--glitch-red); }
+  #ghost-panel h3{ font-family:'Black Han Sans', 'Noto Sans KR', sans-serif; font-size:22px; color:var(--text-main); }
+  #ghost-panel .last-seen{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:12px; color:var(--glitch-red); }
   #ghost-panel .desc{ color:var(--text-sub); font-size:13px; margin-bottom:20px; }
-  #log-stream{ font-family:'JetBrains Mono', monospace; font-size:13px; display:flex; flex-direction:column; gap:8px; }
+  #log-stream{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:13px; display:flex; flex-direction:column; gap:8px; }
   .log-line{ opacity:0; transform:translateY(4px); transition:.3s; color:var(--text-sub); }
   .log-line.show{ opacity:1; transform:translateY(0); }
   .log-line.fail{ color:var(--glitch-red); }
   .log-line.corrupt{ color:var(--glitch-red); letter-spacing:.03em; }
 
   footer{ padding:40px 0; text-align:center; }
-  footer p{ font-size:11px; color:var(--text-faint); font-family:'JetBrains Mono', monospace; line-height:1.8; }
+  footer p{ font-size:11px; color:var(--text-faint); font-family:'JetBrains Mono', 'Noto Sans KR', monospace; line-height:1.8; }
 
   @media (max-width:640px){
     section{ padding:64px 0; }
@@ -277,7 +283,10 @@
     </div>
     <div class="spotlight-card">
       <span class="spotlight-badge">AMBASSADOR</span>
-      <div class="spotlight-photo">사진 업로드 예정</div>
+      <div class="spotlight-photo" style="position:relative;">
+        <img src="/img/1.png" alt="루센트" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:inherit;" onerror="this.style.display='none'">
+        <span style="position:relative;">사진 업로드 예정</span>
+      </div>
       <div class="spotlight-info">
         <div class="rank-line">RANK 32 · 팔로워 128,400</div>
         <h2>루센트 <span style="color:var(--text-faint); font-weight:400; font-size:16px;">(LUCENT)</span></h2>
@@ -522,4 +531,3 @@
 
 </body>
 </html>
-
