@@ -461,7 +461,6 @@
       answer.classList.toggle('glitch-active');
       document.querySelector('#qna-hidden .q').classList.toggle('glitch-active');
       flickers++;
-      if(flickers === 1){ answer.textContent = '로그아...ㅅ이 되지 않습니다.'; }
       if(flickers === 4){ answer.textContent = finalText; }
       if(flickers >= 10){
         clearInterval(flickerInterval);
