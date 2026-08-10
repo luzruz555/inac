@@ -166,7 +166,7 @@
   }
   #story-viewer.open{ display:flex; }
   #story-viewer .story-card{
-    position:relative; width:100%; max-width:380px; aspect-ratio:9/16;
+    position:relative; width:100%; max-width:420px; aspect-ratio:1/1;
     border-radius:12px; overflow:hidden; background:var(--bg-elevated);
   }
   #story-viewer .story-card img{ width:100%; height:100%; object-fit:cover; }
@@ -231,8 +231,8 @@
     <div class="story seen" onclick="openStory(6,'비하인드')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/6.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'"></div></div><span>비하인드</span></div>
   </div>
 
-  <div id="story-viewer">
-    <div class="story-card">
+  <div id="story-viewer" onclick="closeStory()">
+    <div class="story-card" onclick="event.stopPropagation()">
       <button class="story-close" onclick="closeStory()">×</button>
       <span class="story-label" id="story-label"></span>
       <img id="story-img" src="" alt="" style="display:none;">
@@ -439,6 +439,9 @@
   function closeStory(){
     document.getElementById('story-viewer').classList.remove('open');
   }
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') closeStory();
+  });
 </script>
 
 </body>
