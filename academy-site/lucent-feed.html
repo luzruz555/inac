@@ -29,7 +29,6 @@
   }
   ::selection{ background:var(--bronze); color:#181715; }
 
-  /* ---------- header ---------- */
   header{
     position:sticky; top:0; z-index:50;
     background:rgba(28,27,25,.92); backdrop-filter:blur(10px);
@@ -63,7 +62,6 @@
 
   .wrap{ max-width:480px; margin:0 auto; padding-bottom:80px; position:relative; }
 
-  /* ---------- profile block ---------- */
   .profile{ display:flex; align-items:center; gap:16px; padding:24px 20px 10px; }
   .avatar{
     width:72px; height:72px; border-radius:50%; flex-shrink:0;
@@ -82,7 +80,6 @@
   .bio{ padding:6px 20px 20px; font-size:13px; color:var(--text-sub); }
   .bio b{ color:var(--text-main); display:block; font-size:14px; margin-bottom:2px; }
 
-  /* ---------- story bar ---------- */
   .stories{ display:flex; gap:14px; padding:6px 20px 22px; overflow-x:auto; border-bottom:1px solid var(--line); }
   .story{ text-align:center; flex-shrink:0; width:60px; }
   .story .ring{
@@ -96,12 +93,11 @@
   }
   .story span{ font-size:10px; color:var(--text-sub); }
 
-  /* ---------- feed ---------- */
   .post{ border-bottom:1px solid var(--line); padding:18px 20px; }
   .post-head{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
   .post-avatar{
     width:34px; height:34px; border-radius:50%; background:var(--bg-elevated);
-    border:1px solid var(--line);
+    border:1px solid var(--line); overflow:hidden; position:relative;
   }
   .post-head b{ font-size:13px; }
   .post-head span{ font-size:11px; color:var(--text-faint); display:block; }
@@ -114,7 +110,6 @@
   .post-text{ font-size:14px; color:var(--text-main); margin-bottom:10px; }
   .post-meta{ display:flex; gap:16px; font-size:12px; color:var(--text-faint); font-family:'JetBrains Mono', 'Noto Sans KR', monospace; }
 
-  /* ---------- ghost posts (glitch, fleeting) ---------- */
   .ghost-marker{ height:1px; }
   .ghost-post{
     max-height:0; opacity:0; overflow:hidden; padding:0 20px;
@@ -137,7 +132,6 @@
   .ghost-post.gone{ max-height:0; opacity:0; padding:0 20px; border-bottom:1px solid transparent; }
   .ghost-post .deleted{ font-family:'JetBrains Mono', 'Noto Sans KR', monospace; font-size:11px; color:var(--text-faint); font-style:italic; }
 
-  /* ---------- overlay flash ---------- */
   #glitch-overlay{
     position:fixed; inset:0; z-index:99; pointer-events:none; opacity:0;
   }
@@ -149,7 +143,6 @@
     75%{ background-color:rgba(184,137,91,.10); }
   }
 
-  /* ---------- hidden archive (unlocked via login) ---------- */
   #archive{
     display:none; margin:20px; border:1px solid var(--bronze); border-radius:8px;
     padding:22px; background:var(--bg-elevated);
@@ -164,6 +157,31 @@
   @keyframes shake{
     10%,90%{ transform:translateX(-2px);} 20%,80%{ transform:translateX(3px);}
     30%,50%,70%{ transform:translateX(-4px);} 40%,60%{ transform:translateX(4px);}
+  }
+
+  /* ---------- story viewer (image lightbox) ---------- */
+  #story-viewer{
+    position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.85);
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  #story-viewer.open{ display:flex; }
+  #story-viewer .story-card{
+    position:relative; width:100%; max-width:380px; aspect-ratio:9/16;
+    border-radius:12px; overflow:hidden; background:var(--bg-elevated);
+  }
+  #story-viewer .story-card img{ width:100%; height:100%; object-fit:cover; }
+  #story-viewer .story-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    color:var(--text-faint); font-family:'JetBrains Mono', 'Noto Sans KR', monospace;
+    font-size:13px; text-align:center; padding:20px;
+  }
+  #story-viewer .story-close{
+    position:absolute; top:-40px; right:0; color:var(--text-main); font-size:26px;
+    cursor:pointer; background:none; border:none;
+  }
+  #story-viewer .story-label{
+    position:absolute; top:14px; left:14px; font-family:'JetBrains Mono', 'Noto Sans KR', monospace;
+    font-size:11px; color:#fff; background:rgba(0,0,0,.4); padding:4px 10px; border-radius:20px;
   }
 </style>
 </head>
@@ -208,15 +226,25 @@
 
   <div class="stories">
     <div class="story" onclick="openStory(17,'공지')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/17.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'"></div></div><span>공지</span></div>
-    <div class="story seen" onclick="openStory(4,'일상')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/4.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'">></div></div><span>일상</span></div>
+    <div class="story seen" onclick="openStory(4,'일상')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/4.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'"></div></div><span>일상</span></div>
     <div class="story seen" onclick="openStory(5,'Q&amp;A')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/5.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'"></div></div><span>Q&amp;A</span></div>
     <div class="story seen" onclick="openStory(6,'비하인드')" style="cursor:pointer;"><div class="ring"><div class="ring-inner" style="position:relative;"><img src="img/6.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%;" onerror="this.style.display='none'"></div></div><span>비하인드</span></div>
   </div>
+
+  <div id="story-viewer">
+    <div class="story-card">
+      <button class="story-close" onclick="closeStory()">×</button>
+      <span class="story-label" id="story-label"></span>
+      <img id="story-img" src="" alt="" style="display:none;">
+      <div class="story-fallback" id="story-fallback">아직 업로드되지 않았어요</div>
+    </div>
+  </div>
+
   <!-- ===== FEED ===== -->
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>3시간 전</span></div>
     </div>
     <div class="post-img" style="position:relative;">
@@ -234,7 +262,7 @@
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>어제</span></div>
     </div>
     <div class="post-text">다음 주 화요일 팬 상담 코너 신청 폼 열었어요. 많이 신청해줘요!</div>
@@ -243,7 +271,7 @@
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>2일 전</span></div>
     </div>
     <div class="post-img" style="position:relative;">
@@ -261,7 +289,7 @@
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>3일 전</span></div>
     </div>
     <div class="post-text">홍보대사로 발탁! 다들 정말 고마워요 🥹 앞으로도 잘 부탁드려요</div>
@@ -270,7 +298,7 @@
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>4일 전</span></div>
     </div>
     <div class="post-img" style="position:relative;">
@@ -288,7 +316,7 @@
 
   <div class="post">
     <div class="post-head">
-      <div class="post-avatar"></div>
+      <div class="post-avatar"><img src="img/3.png" alt="" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'"></div>
       <div><b>lucent_official</b><span>5일 전</span></div>
     </div>
     <div class="post-text">이번 주도 잘 부탁드려요 🤍</div>
@@ -395,6 +423,22 @@
 
   loginMiniBtn.addEventListener('click', tryMiniLogin);
   pwMini.addEventListener('keydown', e => { if(e.key === 'Enter') tryMiniLogin(); });
+
+  // ---------- story viewer (click a story to see it enlarged) ----------
+  function openStory(num, label){
+    const img = document.getElementById('story-img');
+    const fallback = document.getElementById('story-fallback');
+    const labelEl = document.getElementById('story-label');
+    labelEl.textContent = label;
+    fallback.style.display = 'none';
+    img.style.display = 'block';
+    img.onerror = () => { img.style.display = 'none'; fallback.style.display = 'flex'; };
+    img.src = 'img/' + num + '.png';
+    document.getElementById('story-viewer').classList.add('open');
+  }
+  function closeStory(){
+    document.getElementById('story-viewer').classList.remove('open');
+  }
 </script>
 
 </body>
